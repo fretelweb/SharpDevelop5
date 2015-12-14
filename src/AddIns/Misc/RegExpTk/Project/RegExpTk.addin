@@ -1,0 +1,21 @@
+<AddIn name        = "Regular Expressions Toolkit"
+       author      = "Markus Palme"
+       copyright   = "prj:///doc/copyright.txt"
+       description = "Testing toolkit for regular expressions"
+       addInManagerHidden = "preinstalled">
+	
+	<Manifest>
+		<Identity name = "ICSharpCode.RegExpTk"/>
+	</Manifest>
+	
+	<Runtime>
+		<Import assembly="RegExpTk.dll" />
+	</Runtime>
+	
+	<Path name = "/SharpDevelop/Workbench/Tools">
+		<MenuItem id = "RegExpTk"
+		          label       = "${res:XML.MainMenu.ToolsMenu.RegularExpressionToolkit}"
+		          class       = "Plugins.RegExpTk.RegExpTkCommand"
+		/>
+	</Path>
+</AddIn>

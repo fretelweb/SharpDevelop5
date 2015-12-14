@@ -1,0 +1,178 @@
+﻿<AddIn name="Unit Testing AddIn"
+       author="Matt Ward"
+       copyright="prj:///doc/copyright.txt"
+       description="Runs NUnit tests inside #Develop"
+       addInManagerHidden="preinstalled">
+	
+	<Manifest>
+		<Identity name="ICSharpCode.UnitTesting"/>
+		<Dependency addin="SharpDevelop"/>
+	</Manifest>
+	
+	<Runtime>
+		<Import assembly="UnitTesting.dll">
+			<ConditionEvaluator name="Testable" class="ICSharpCode.UnitTesting.TestableCondition"/>
+			<ConditionEvaluator name="RunningTests" class="ICSharpCode.UnitTesting.RunningTestsCondition"/>
+			<Doozer name="TestFramework" class="ICSharpCode.UnitTesting.TestFrameworkDoozer"/>
+		</Import>
+	</Runtime>
+	
+	<Path name = "/SharpDevelop/Services">
+		<Service id="ICSharpCode.UnitTesting.ITestService"
+		         class="ICSharpCode.UnitTesting.SDTestService"/>
+	</Path>
+	
+	<Path name="/SharpDevelop/UnitTesting/TestFrameworks">
+		<TestFramework id="nunit"
+		               class="ICSharpCode.UnitTesting.NUnitTestFramework"
+		               supportedProjects=".csproj;.vbproj;.booproj" />
+	</Path>
+	
+	<Path name="/SharpDevelop/TreeNodeFactories">
+		<Class id="UnitTestNodeFactory" class="ICSharpCode.UnitTesting.UnitTestNodeFactory" />
+	</Path>
+	
+	<Path name="/SharpDevelop/Workbench/Pads">
+		<Pad id="UnitTestingPad"
+		     category="Tools"
+		     title="${res:ICSharpCode.NUnitPad.NUnitPadContent.PadName}"
+		     icon="PadIcons.NUnitTest"
+		     class="ICSharpCode.UnitTesting.UnitTestsPad"
+		     defaultPosition="Right, Hidden" />
+	</Path>
+	
+	<Path name="/SharpDevelop/EntityContextMenu">
+		<Condition name="Testable">
+			<MenuItem id="UnitTestMenu" type="Menu" label="${res:ICSharpCode.NUnitPad.NUnitPadContent.PadName}" icon="PadIcons.NUnitTest" insertbefore="MenuBuilder">
+				<Include id="CommonTestCommands" path="/SharpDevelop/Pads/UnitTestsPad/CommonTestCommands"/>
+			</MenuItem>
+		</Condition>
+	</Path>
+	
+	<Path name="/SharpDevelop/Pads/UnitTestsPad/CommonTestCommands">
+		<ComplexCondition action="Disable">
+			<Not>
+				<Condition name="RunningTests"/>
+			</Not>
+			<MenuItem id="Run"
+			          icon="Icons.16x16.Debug.StartWithoutDebugging"
+			          label="${res:NUnitPad.NUnitPadContent.RunTestsContextMenuLabel}"
+			          class="ICSharpCode.UnitTesting.RunSelectedTestCommand"/>
+			<MenuItem id="RunWithDebugger"
+			          label="${res:ICSharpCode.UnitTesting.RunWithDebugger}"
+			          icon="Icons.16x16.RunProgramIcon"
+			          class="ICSharpCode.UnitTesting.RunSelectedTestWithDebuggerCommand"/>
+		</ComplexCondition>
+	</Path>
+	
+	<Path name="/SharpDevelop/Pads/UnitTestsPad/Toolbar">
+		<ComplexCondition action="Disable">
+			<And>
+				<Condition name="SolutionOpen"/>
+				<Not>
+					<Condition name="RunningTests"/>
+				</Not>
+			</And>
+			<ToolbarItem id="RunAll"
+			             icon="Icons.16x16.RunAllIcon"
+			             tooltip="${res:NUnitPad.NUnitPadContent.RunAllTests}"
+			             class="ICSharpCode.UnitTesting.RunAllTestsInSolutionCommand"/>
+			<ToolbarItem id="Run"
+			             insertafter="RunAll"
+			             icon="Icons.16x16.RunProgramIcon"
+			             tooltip="${res:NUnitPad.NUnitPadContent.RunItem}"
+			             class="ICSharpCode.UnitTesting.RunSelectedTestCommand"/>
+		</ComplexCondition>
+		<ComplexCondition action="Disable">
+			<And>
+				<Condition name="SolutionOpen"/>
+				<Condition name="RunningTests"/>
+			</And>
+			<ToolbarItem id="Stop"
+			             icon="Icons.16x16.Debug.StopProcess"
+			             tooltip="${res:NUnitPad.NUnitPadContent.StopTests}"
+			             class="ICSharpCode.UnitTesting.StopTestsCommand"/>
+		</ComplexCondition>
+		<Condition name = "SolutionOpen" action="Disable">
+			<ToolbarItem id="Separator2" type="Separator"/>
+			<ToolbarItem id="AddNUnitReference"
+			             icon="Icons.16x16.Reference"
+			             tooltip="${res:NUnitPad.NUnitPadContent.ReferenceItem}"
+			             class="ICSharpCode.UnitTesting.AddNUnitReferenceCommand"/>
+			<ToolbarItem id = "CollapseSeparator" type = "Separator"/>
+			<ToolbarItem id      = "ExpandAll"
+		             icon        = "Icons.16x16.OpenCollection"
+		             tooltip     = "${res:MainWindow.Windows.SearchResultPanel.ExpandAll.ToolTip}"
+		             class       = "ICSharpCode.UnitTesting.ExpandAllTestsCommand"/>
+			<ToolbarItem id      = "Collapse"
+			             icon    = "Icons.16x16.Collection"
+			             tooltip = "${res:MainWindow.Windows.SearchResultPanel.CollapseAll.ToolTip}"
+			             class   = "ICSharpCode.UnitTesting.CollapseAllTestsCommand"/>
+		</Condition>
+	</Path>
+	
+	<Path name="/SharpDevelop/Pads/UnitTestsPad/ContextMenu">
+		<Include id="CommonTestCommands" path="/SharpDevelop/Pads/UnitTestsPad/CommonTestCommands"/>
+		<ComplexCondition action="Disable">
+			<And>
+				<Condition name="SolutionOpen"/>
+				<Condition name="RunningTests"/>
+			</And>
+			<MenuItem id="Stop"
+			          icon="Icons.16x16.Debug.StopProcess"
+			          label="${res:NUnitPad.NUnitPadContent.StopTests}"
+			          class="ICSharpCode.UnitTesting.StopTestsCommand"/>
+		</ComplexCondition>
+		<Condition name="Ownerstate" ownerstate="SupportsGoToDefinition" action="Disable">
+			<MenuItem id="GotoDefinition"
+			          label="${res:NUnitPad.NUnitPadContent.GotoDefinitionContextMenuLabel}"
+			          class="ICSharpCode.UnitTesting.GotoDefinitionCommand"/>
+		</Condition>
+	</Path>
+	
+	<Path name="/SharpDevelop/Workbench/MainMenu/Analysis">
+		<MenuItem id="Test" label="${res:ICSharpCode.UnitTesting.TestMenu}" type="Menu" insertbefore="Separator1">
+			<ComplexCondition action="Disable">
+				<And>
+					<Condition name="SolutionOpen"/>
+					<Not>
+						<Condition name="RunningTests"/>
+					</Not>
+				</And>
+				<MenuItem id="RunAll"
+				          icon="Icons.16x16.RunAllIcon"
+				          label="${res:NUnitPad.NUnitPadContent.RunAllTests}"
+				          class="ICSharpCode.UnitTesting.RunAllTestsInSolutionCommand"/>
+			</ComplexCondition>
+			<ComplexCondition action="Disable">
+				<And>
+					<Condition name="SolutionOpen"/>
+					<Not>
+						<Condition name="RunningTests"/>
+						<Condition name="ProjectActive" activeproject="*"/>
+					</Not>
+				</And>
+				<MenuItem id="RunProjectTests"
+				          icon="Icons.16x16.RunProgramIcon"
+				          label="${res:ICSharpCode.UnitTesting.RunProjectTests}"
+				          class="ICSharpCode.UnitTesting.RunAllTestsInProjectCommand"/>
+			</ComplexCondition>
+			<ComplexCondition action="Disable">
+				<And>
+					<Condition name="SolutionOpen"/>
+					<Condition name="RunningTests"/>
+				</And>
+				<MenuItem id="Stop"
+				          icon="Icons.16x16.Debug.StopProcess"
+				          label="${res:NUnitPad.NUnitPadContent.StopTests}"
+				          class="ICSharpCode.UnitTesting.StopTestsCommand"/>
+			</ComplexCondition>
+		</MenuItem>
+	</Path>
+	
+	<Path name="/SharpDevelop/Dialogs/OptionsDialog/ToolsOptions">
+		<OptionPanel id="UnitTestingOptionsPanel"
+		             label="${res:ICSharpCode.NUnitPad.NUnitPadContent.PadName}"
+		             class="ICSharpCode.UnitTesting.UnitTestingOptionsPanel"/>
+	</Path>
+</AddIn>

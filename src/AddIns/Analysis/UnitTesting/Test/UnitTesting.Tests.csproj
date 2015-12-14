@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UnitTesting.Tests</RootNamespace>
+    <AssemblyName>UnitTesting.Tests</AssemblyName>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{44A8DE09-CAB9-49D8-9CFC-5EB0A552F181}</ProjectGuid>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>x86</PlatformTarget>
+    <FileAlignment>4096</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IntermediateOutputPath>obj\Debug\</IntermediateOutputPath>
+    <OutputPath>..\..\..\..\..\bin\UnitTests\</OutputPath>
+    <Optimize>False</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>obj\Release\</IntermediateOutputPath>
+    <OutputPath>..\..\..\..\..\bin\UnitTests\</OutputPath>
+    <Optimize>True</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit-console">
+      <HintPath>..\..\..\..\Tools\NUnit\nunit-console.exe</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="nunit.core">
+      <HintPath>..\..\..\..\Tools\NUnit\lib\nunit.core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="nunit.core.interfaces">
+      <HintPath>..\..\..\..\Tools\NUnit\lib\nunit.core.interfaces.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\..\Tools\NUnit\nunit.framework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\..\..\Libraries\RhinoMocks\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Commands\TestableConditionIsValidForClassNodeTestFixture.cs" />
+    <Compile Include="Commands\TestableConditionIsValidMethodTestFixture.cs" />
+    <Compile Include="NUnit\CreateNUnitTestRunnerTestFixture.cs" />
+    <Compile Include="NUnit\NUnitConsoleCommandLineTests.cs" />
+    <Compile Include="NUnit\NUnitConsoleExeSelectedTestFixture.cs" />
+    <Compile Include="NUnit\NUnitConsoleProcessStartInfoTestFixture.cs" />
+    <Compile Include="NUnit\NUnitTestFrameworkIsTestClassTests.cs" />
+    <Compile Include="NUnit\NUnitTestFrameworkIsTestMemberTests.cs" />
+    <Compile Include="NUnit\NUnitTestFrameworkIsTestProjectTests.cs" />
+    <Compile Include="NUnit\NUnitTestResultFailureTestFixture.cs" />
+    <Compile Include="Project\AbstractBaseClassWithTestMethodsTestFixture.cs" />
+    <Compile Include="Project\DoubleNestedTestClassWithBaseType.cs" />
+    <Compile Include="Project\DuplicateClassNameTestFixture.cs" />
+    <Compile Include="Project\DuplicateMethodNameTestFixture.cs" />
+    <Compile Include="Project\EmptyProjectTestFixture.cs" />
+    <Compile Include="Project\InheritanceHierarchyTestFixture.cs" />
+    <Compile Include="Project\InnerClassInTestFixtureTests.cs" />
+    <Compile Include="Project\InnerClassMethodRenamedTestFixture.cs" />
+    <Compile Include="Project\InnerClassNameChangesTestFixture.cs" />
+    <Compile Include="Project\InnerClassTestFixture.cs" />
+    <Compile Include="Project\InnerClassTestFixtureAttributeRemovedTestFixture.cs" />
+    <Compile Include="Project\NUnitTestProjectFixtureBase.cs" />
+    <Compile Include="Project\OverriddenBaseTestMethodTestFixture.cs" />
+    <Compile Include="Project\TestClassWithOneMethodTestFixture.cs" />
+    <Compile Include="Project\TestClassWithTwoMethodsTestFixture.cs" />
+    <Compile Include="Project\TestMethodsInBaseClassTestFixture.cs" />
+    <Compile Include="Project\TestProjectWithOneClassTestFixture.cs" />
+    <Compile Include="Project\TestCollectionTests.cs" />
+    <Compile Include="Project\TwoProjectRootNamespacesTestFixture.cs" />
+    <Compile Include="Service\TestFrameworkDescriptorTests.cs" />
+    <Compile Include="TestRunner\TestResultsReaderTests.cs" />
+    <Compile Include="UnitTestingOptionsTestFixture.cs" />
+    <Compile Include="Utils\MockCSharpProject.cs" />
+    <Compile Include="Utils\NRefactoryHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Libraries\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj">
+      <Project>{B2BBC7BC-837C-40ED-A6DB-D5AE8626212F}</Project>
+      <Name>ICSharpCode.NRefactory.Cecil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj">
+      <Project>{53DCA265-3C3C-42F9-B647-F72BA678122B}</Project>
+      <Name>ICSharpCode.NRefactory.CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj">
+      <Project>{3B2A5653-EC97-4001-BB9B-D90F1AF2C371}</Project>
+      <Name>ICSharpCode.NRefactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Main\Base\Test\ICSharpCode.SharpDevelop.Tests.csproj">
+      <Project>{4980B743-B32F-4aba-AABD-45E2CAD3568D}</Project>
+      <Name>ICSharpCode.SharpDevelop.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Main\ICSharpCode.SharpDevelop.Widgets\Project\ICSharpCode.SharpDevelop.Widgets.csproj">
+      <Project>{8035765F-D51F-4A0C-A746-2FD100E19419}</Project>
+      <Name>ICSharpCode.SharpDevelop.Widgets</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\UnitTesting.csproj">
+      <Project>{1F261725-6318-4434-A1B1-6C70CE4CD324}</Project>
+      <Name>UnitTesting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Main\Core\Project\ICSharpCode.Core.csproj">
+      <Project>{35CEF10F-2D4C-45F2-9DD1-161E0FEC583C}</Project>
+      <Name>ICSharpCode.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Main\Base\Project\ICSharpCode.SharpDevelop.csproj">
+      <Project>{2748AD25-9C63-4E12-877B-4DCE96FBED54}</Project>
+      <Name>ICSharpCode.SharpDevelop</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands" />
+    <Folder Include="Project" />
+    <Folder Include="TestRunner" />
+    <Folder Include="Service" />
+    <Folder Include="NUnit" />
+    <Folder Include="Utils" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+</Project>
